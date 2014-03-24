@@ -130,7 +130,7 @@
     [defaults setObject:historyData forKey:@"historyData"];
     [defaults synchronize];
     
-    //モダンな書き方
+    //シェア用文章,URL,画像（モダンな書き方）
     NSArray *actItems = @[text,powered,mapPic];
     
     UIActivityViewController
