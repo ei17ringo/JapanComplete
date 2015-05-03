@@ -15,6 +15,7 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *btnShare;
 
+@property (weak, nonatomic) IBOutlet UILabel *percentage;
 
 - (UIImage *)screenshotWithView:(UIView *)view;
 

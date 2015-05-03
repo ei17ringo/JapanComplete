@@ -1,44 +1,73 @@
 
+const DEFAULT_COLOR = '#c6d3db';
+const VISIT_COLOR = '#a7c2ee';
+const TRAVEL_COLOR = '#618eda';
+const STAY_COLOR = '#3b4faf';
 
 function fill_path(newpath){
 
-	newpath.addEventListener("click", function(){
+	//newpath.addEventListener("click", function(){
 
 	var colorcode = newpath.getAttribute("fill");
 	var area_id = newpath.getAttribute("id");
-	var changecolorcode = '#FFFFFF';
+	var changecolorcode = DEFAULT_COLOR;
 	var code = 0;
 
     //alert(colorcode);
     
-                             
-    /* 白 */
-    if (colorcode == '#FFFFFF'){
-        changecolorcode = '#FFFF00';
-        code = 1;
-        newpath.setAttribute("fill", changecolorcode);
-    }
+    switch (colorcode) {
+        case DEFAULT_COLOR:
+            changecolorcode = VISIT_COLOR;
+            code = 1;
+            break;
+        case VISIT_COLOR:
+            changecolorcode = TRAVEL_COLOR;
+            code = 2;
+            break;
+        case TRAVEL_COLOR:
+            changecolorcode = STAY_COLOR;
+            code = 3;
+            break;
+        case STAY_COLOR:
+            changecolorcode = DEFAULT_COLOR;
+            code = 0;
+            break;
+        default:
+            changecolorcode = DEFAULT_COLOR;
+            code = 0;
+            break;
     
-    /* 黄色 */
-    if (colorcode == '#FFFF00'){
-        changecolorcode = '#00BFFF';
-        code = 2;
-        newpath.setAttribute("fill", changecolorcode);
     }
-                             
-    /* 水色 */
-    if (colorcode == '#00BFFF'){
-        changecolorcode = '#4169e1';
-        code = 3;
-        newpath.setAttribute("fill", changecolorcode);
-    }
-	
-    /* 青 */
-    if (colorcode == '#4169e1'){
-        changecolorcode = '#FFFFFF';
-        code = 0;
-        newpath.setAttribute("fill", changecolorcode);
-    }
+    newpath.setAttribute("fill", changecolorcode);
+
+    
+//    /* デフォルト -> 立ち寄った */
+//    if (colorcode == DEFAULT_COLOR){
+//        changecolorcode = VISIT_COLOR;
+//        code = 1;
+//        newpath.setAttribute("fill", changecolorcode);
+//    }
+//    
+//    /* 立ち寄った -> 旅行した */
+//    if (colorcode == VISIT_COLOR){
+//        changecolorcode = TRAVEL_COLOR;
+//        code = 2;
+//        newpath.setAttribute("fill", changecolorcode);
+//    }
+//                             
+//    /* 旅行した -> 住んだ */
+//    if (colorcode == TRAVEL_COLOR){
+//        changecolorcode = STAY_COLOR;
+//        code = 3;
+//        newpath.setAttribute("fill", changecolorcode);
+//    }
+//	
+//    /* 住んだ -> デフォルト */
+//    if (colorcode == STAY_COLOR){
+//        changecolorcode = DEFAULT_COLOR;
+//        code = 0;
+//        newpath.setAttribute("fill", changecolorcode);
+//    }
 
 	var strForObjectiveC = new String();　
 	strForObjectiveC += 'webview://saveFunc?color=';
@@ -49,7 +78,7 @@ function fill_path(newpath){
 	window.location = strForObjectiveC;
 
 
-});
+//});
 
 }
 
@@ -63,20 +92,20 @@ function setcolor(code,area_id){
 
     switch (code) {
         case '0':
-  			changecolorcode = '#FFFFFF';
+  			changecolorcode = DEFAULT_COLOR;
   			break;
 		case '1':
-			changecolorcode = '#FFFF00';
+			changecolorcode = VISIT_COLOR;
 			break;
 		case '2':
-			changecolorcode = '#00BFFF';
+			changecolorcode = TRAVEL_COLOR;
 			break;
         case '3':
-            changecolorcode = '#4169e1';
+            changecolorcode = STAY_COLOR;
             code = 0;
             break;
 		default :
-			changecolorcode = '#FFFFFF';
+			changecolorcode = DEFAULT_COLOR;
 			break;
     }
     

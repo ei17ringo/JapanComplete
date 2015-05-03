@@ -14,7 +14,7 @@
 @end
 
 @implementation HistoryViewController{
-    NSDictionary *historyData;
+    NSMutableArray *historyData;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -29,7 +29,24 @@
 - (void)viewWillAppear:(BOOL)animated  {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
-    historyData =[defaults dictionaryForKey:@"historyData"];
+    NSDictionary *tmp =[defaults dictionaryForKey:@"historyData"];
+    
+    //ソート機能が使えるように整形
+    NSArray *keys = [tmp allKeys];
+    
+    historyData = [NSMutableArray new];
+    for (NSString *strKey in keys) {
+        NSDictionary *each = @{@"created":strKey,@"imageName":[tmp objectForKey:strKey]};
+        
+        [historyData addObject:each];
+    }
+    
+    
+    NSSortDescriptor *sortDescNumber=[[NSSortDescriptor alloc]initWithKey:@"created" ascending:NO];
+    
+    NSArray *sortDescArray = [NSArray arrayWithObjects:sortDescNumber,nil];
+    
+    historyData =[[historyData sortedArrayUsingDescriptors:sortDescArray] mutableCopy];
     
     [self.HistoryTableView reloadData];
 
@@ -44,7 +61,8 @@
     self.HistoryTableView.dataSource = self;
     self.HistoryTableView.delegate = self;
 
-    
+    [[self navigationItem] setTitle:@"History"];
+
 }
 
 
@@ -65,13 +83,14 @@
     }
     
     //行に配列の文字列を表示
-    NSArray *keys = [historyData allKeys];
-    NSString *strKey = [keys objectAtIndex:indexPath.row];
-    NSString *imgname = [historyData objectForKey:[keys objectAtIndex:indexPath.row]];
-        
-    cell.textLabel.text = [NSString stringWithFormat:@"%@",strKey];
+//    NSArray *keys = [historyData allKeys];
+//    NSString *strKey = [keys objectAtIndex:indexPath.row];
+//    NSString *imgname = [historyData objectForKey:[keys objectAtIndex:indexPath.row]];
+    NSDictionary *eachData = [historyData objectAtIndex:indexPath.row];
     
-    NSString *FileName = imgname;
+    cell.textLabel.text = [NSString stringWithFormat:@"%@",eachData[@"created"]];
+    
+    NSString *FileName = eachData[@"imageName"];
     // Documentsディレクトリに保存
     NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
     
@@ -98,12 +117,13 @@
     
     NSInteger selectindex = self.HistoryTableView.indexPathForSelectedRow.row;
     
-    NSArray *keys = [historyData allKeys];
-    NSString *strKey = [keys objectAtIndex:selectindex];
-    NSString *imgname = [historyData objectForKey:[keys objectAtIndex:selectindex]];
+//    NSArray *keys = [historyData allKeys];
+//    NSString *strKey = [keys objectAtIndex:selectindex];
+//    NSString *imgname = [historyData objectForKey:[keys objectAtIndex:selectindex]];
+    NSDictionary *eachData = [historyData objectAtIndex:selectindex];
     
-    hivc.historyKey = strKey;
-    hivc.historyImageName = imgname;
+    hivc.historyKey = eachData[@"created"];
+    hivc.historyImageName = eachData[@"imageName"];
     
     
 }

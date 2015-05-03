@@ -17,6 +17,7 @@
     BOOL firstFlag;
     NSDictionary *colorArea;
     NSDictionary *historyData;
+    int _countColored; //色がついているエリアの数
 }
 
 @end
@@ -73,6 +74,7 @@
     NSLog(@"load=%@",colorArea);
     
     NSArray *keys = [colorArea allKeys];
+    
     for(int i=0; i<[keys count]; i++){
         NSString *strKey = [keys objectAtIndex:i];
         NSString *strValue = [colorArea objectForKey:[keys objectAtIndex:i]];
@@ -81,21 +83,42 @@
               strValue);
         NSString *command =[NSString stringWithFormat:@"setcolor('%@','%@')",strValue,strKey];
         [self.mapWebView stringByEvaluatingJavaScriptFromString:command];
+        
     }
+
+    [self calcPercentage];
 }
 
+//パーセンテージを計算する
+-(void)calcPercentage{
+    
+    NSArray *keys = [colorArea allKeys];
+    _countColored = 0;
+
+    for(int i=0; i<[keys count]; i++){
+        NSString *strValue = [colorArea objectForKey:[keys objectAtIndex:i]];
+        if ([strValue intValue] > 0){
+            _countColored++;
+        }
+    }
+    
+    float percentage = _countColored / 47.00 * 100.00;
+    
+    self.percentage.text = [NSString stringWithFormat:@"%.2f%%",percentage];
+
+}
 //シェアボタン
 - (IBAction)BtnShare:(id)sender {
     NSString *text;
     NSString *powered;
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
-    //NSURL *url;
+    NSURL *url;
     
-    text = @"今コレだけ日本を回りましたよ〜\n";
+    text = [NSString stringWithFormat:@"%@Complete in Japan now!\n",self.percentage.text];
     powered = @"Powered by Japan Complete.";
     
-    //url = [NSURL URLWithString:@"http://google.com/"];
+    url = [NSURL URLWithString:@"https://itunes.apple.com/us/app/japancomplete/id842436484?mt=8"];
     
     //現在作成した地図のスクリーンショットを作成
     UIImage *mapPic = [self screenshotWithView:self.mapWebView];
@@ -131,7 +154,7 @@
     [defaults synchronize];
     
     //シェア用文章,URL,画像（モダンな書き方）
-    NSArray *actItems = @[text,powered,mapPic];
+    NSArray *actItems = @[text,powered,url,mapPic];
     
     UIActivityViewController
     *activityView = [[UIActivityViewController alloc] initWithActivityItems:actItems applicationActivities:nil];
@@ -207,8 +230,7 @@
 
         colorArea = [self setAreaDictionary:ColorCode areaID:AreaID];
         
-        
-        
+        [self calcPercentage];
     }
     return YES;
 }
@@ -330,10 +352,6 @@
         [UIView commitAnimations];
         viewIsVisible = NO;
     }
-}
-
--(IBAction)returnMainView:(UIStoryboardSegue *)segue{
-    
 }
 
 - (void)didReceiveMemoryWarning
