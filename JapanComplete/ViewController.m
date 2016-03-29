@@ -87,6 +87,9 @@
     }
 
     [self calcPercentage];
+    
+   
+    
 }
 
 //パーセンテージを計算する
@@ -154,7 +157,8 @@
     [defaults synchronize];
     
     //シェア用文章,URL,画像（モダンな書き方）
-    NSArray *actItems = @[text,powered,url,mapPic];
+    //NSArray *actItems = @[text,powered,url,mapPic];
+    NSArray *actItems = @[text,mapPic];
     
     UIActivityViewController
     *activityView = [[UIActivityViewController alloc] initWithActivityItems:actItems applicationActivities:nil];
@@ -164,7 +168,10 @@
     
 }
 
-//スクリーンショットを取る
+
+
+
+
 - (UIImage *)screenshotWithView:(UIView *)view
 {
     CGSize imageSize = [self.mapWebView bounds].size;
@@ -335,7 +342,7 @@
         [UIView beginAnimations:@"animateAdBannerOn" context:nil];
         [UIView setAnimationDuration:0.3];
         
-        banner.frame = CGRectOffset(banner.frame, 0, CGRectGetHeight(banner.frame));
+        banner.frame = CGRectMake(0,20,adView.frame.size.width, adView.frame.size.height);
         banner.alpha = 1.0;
         [UIView commitAnimations];
         viewIsVisible = YES;
@@ -347,12 +354,14 @@
         [UIView beginAnimations:@"animateAdBannerOff" context:nil];
         [UIView setAnimationDuration:0.3];
         
-        banner.frame = CGRectOffset(banner.frame, 0, -CGRectGetHeight(banner.frame));
+        banner.frame = CGRectMake(0,-adView.frame.size.height,adView.frame.size.width, adView.frame.size.height);
         banner.alpha = 1.0;
         [UIView commitAnimations];
         viewIsVisible = NO;
     }
 }
+
+
 
 - (void)didReceiveMemoryWarning
 {

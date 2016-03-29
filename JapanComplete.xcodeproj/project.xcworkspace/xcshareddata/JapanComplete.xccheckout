@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>91090CC8-EDD9-4308-A313-D9BFC7781AAC</string>
+	<key>IDESourceControlProjectName</key>
+	<string>JapanComplete</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>416EC046C85700232CB4571877BE0C58EF8F6F24</key>
+		<string>https://github.com/ei17ringo/JapanComplete</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>JapanComplete.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>416EC046C85700232CB4571877BE0C58EF8F6F24</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/ei17ringo/JapanComplete</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>416EC046C85700232CB4571877BE0C58EF8F6F24</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>416EC046C85700232CB4571877BE0C58EF8F6F24</string>
+			<key>IDESourceControlWCCName</key>
+			<string>JapanComplete</string>
+		</dict>
+	</array>
+</dict>
+</plist>

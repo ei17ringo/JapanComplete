@@ -61,11 +61,12 @@
     self.HistoryTableView.dataSource = self;
     self.HistoryTableView.delegate = self;
 
+    //TODO:固定で1設定してるので変数に変更
     [[self navigationItem] setTitle:@"History"];
 
 }
 
-
+#pragma mark - テーブル設定
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return historyData.count;
 }
@@ -128,6 +129,7 @@
     
 }
 
+#pragma mark - Others
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
